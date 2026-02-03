@@ -8,15 +8,27 @@ function applyCustomSort() {
     const arr = this;
     const len = arr.length;
 
-    // Simple bubble sort implementation
     for (let i = 0; i < len - 1; i++) {
       for (let j = 0; j < len - i - 1; j++) {
-        const shouldSwap = compareFunction
-          ? compareFunction(arr[j], arr[j + 1]) > 0
-          : String(arr[j]) > String(arr[j + 1]);
+        const a = arr[j];
+        const b = arr[j + 1];
+        let shouldSwap = false;
+
+        if (a === undefined && b === undefined) {
+          shouldSwap = false;
+        } else if (a === undefined) {
+          shouldSwap = true;
+        } else if (b === undefined) {
+          shouldSwap = false;
+        } else {
+          if (compareFunction) {
+            shouldSwap = compareFunction(a, b) > 0;
+          } else {
+            shouldSwap = String(a) > String(b);
+          }
+        }
 
         if (shouldSwap) {
-          // Swap arr[j] and arr[j + 1]
           [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         }
       }
